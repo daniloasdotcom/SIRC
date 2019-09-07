@@ -1,0 +1,5 @@
+Amostra,Número da Amostra,Produtor,pH,P,K,Na,Ca,Mg,Al,H + Al,V1 (%),Valor x,Tipo de aplicação,Profundidade (cm),Entre plantas (m),Entre linhas (m),% de Cobertura,lbc (m),cbc (m),base_menor (m),base_maior (m)
+am1,100,Geraldo Azevedo,5.6,,68,5,2.67,1.08,,6.02,60,3.5,sc,20,1,2,75,0.4,0.4,0.4,0.4
+am2,101,Gilberto Gil,4.5,,68,5,2.67,1.08,,6.02,60,3.5,fx,20,1,2,75,0.4,0.4,0.4,0.4
+am3,102,Djavan,4.5,,68,5,2.67,1.08,,6.02,60,3.5,cv,20,1,2,75,0.4,0.4,0.4,0.4
+am4,103,Dom Pedro I,4.5,,68,5,2.67,1.08,,6.02,60,3.5,nc,20,1,2,75,0.4,0.4,0.4,0.4
