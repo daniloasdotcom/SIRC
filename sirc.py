@@ -1,4 +1,4 @@
-from tkinter import filedialog
+﻿from tkinter import filedialog
 from tkinter import *
 import os, docx, csv
 
@@ -74,6 +74,7 @@ def gerarRecomendacao():
             na = float(row[6])
             ca = float(row[7])
             mg = float(row[8])
+            al = float(row[9])
             alh = float(row[10])
             v1 = float(row[11])
             x = float(row[12])
@@ -96,11 +97,17 @@ def gerarRecomendacao():
             # CTC potencial
             ctctotal = ca + mg + k + na + alh
 
+            # CTC efetiva
+            ctcef = ca + mg + k + na + al
+
             # Soma de Bases
             sb = ca + mg + k + na
 
             # Saturação por bases
             v2 = sb/ctctotal * 100
+
+            # Saturação por aluminio
+            m = al/ctcef * 100
 
             # Número de plantas por hectare
             numplant = 10000/(el * li)
@@ -111,7 +118,7 @@ def gerarRecomendacao():
 
             # Calculamos também a Necessidade de calagem por 3 diferentes métodos
             # Metódo 1 - Soma de bases
-            ncm1 = ((ctctotal * (v1 - v2)) / 100) * (20/pf)
+            ncm1 = ((ctctotal * (v1 - v2)) / 100)
 
             # Metódo 2 - Soma de cálcio e mágnesio ideal para a cultura
             ncm2 = (x - (ca + mg))
@@ -138,7 +145,7 @@ def gerarRecomendacao():
             if ta == 'fx':
 
                 # Conversão de qc para valores a serem aplicado no sulco em g de calcário/planta
-                qc = (qc * 1000000) / numplant * fc/100
+                qc = qc * (1000000/numplant) * fc/100
 
                 # Texto da recomendação
                 doc.add_paragraph('Prognóstico Para Calagem', 'Title')
@@ -214,6 +221,10 @@ def gerarRecomendacao():
                 # e utilizado para criação da próxima recomendação
                 doc = docx.Document()
 
+            if ca >= 0.4 or al > 0.5 or m > 30:
+                print('Essa amostra precisa de Gessagem')
+
+
 ############################################################################################
 ######################  EVENTO 04  #########################################################
 #Interpretador dos dados e relatório de amostras que possivelmente não precisam de calagem##
@@ -269,7 +280,7 @@ def reverAmostras():
 ####################################################################
 
 janela = Tk()
-janela.iconbitmap('arts/paper-pencil-and-calculator.ico')
+#janela.iconbitmap('E:/Git/SIRC/arts/icon.ico')
 janela.title("Interpretação e Recomendação de Calagem")
 janela.geometry("600x300+200+200")
 janela["bg"] = "snow2"
@@ -282,7 +293,7 @@ bt = Button(janela, width = 30, text = "Indique o arquivo de dados",
 # EVENTO 02
 # Botão para indicar o diretório onde as recomendações e relatórios serão salvos
 bt = Button(janela, width = 50, text = "Indique o diretório onde as recomendações serão salvas",
-            command = mDirectotyopen, bg = "black", fg="white").place(x = 120, y = 50)
+            command = mDirectotyopen,  bg = "black", fg="white").place(x = 120, y = 50)
 
 # EVENTO 03
 # Botão para gerar um diagnóstico prévio da necessidade de calagem
@@ -294,7 +305,7 @@ bt = Button(janela, width=35, height = 2, text = "Diagnóstico prévio da necess
 bt = Button(janela, width = 35, height = 2, text = "Gerar recomendações para as amostras",
             command = gerarRecomendacao, bg = "black", fg="white").place(x = 330, y = 130)
 
-logotipo = PhotoImage(file="arts/logotipo_ca.png")
-label = Label(janela, image = logotipo).pack(side=BOTTOM)
+#logotipo = PhotoImage(file="E:/Git/SIRC/arts/logotipo_ca.png")
+#label = Label(janela, image = logotipo).pack(side=BOTTOM)
 
 janela.mainloop()
